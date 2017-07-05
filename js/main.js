@@ -28,7 +28,7 @@
          console.log("error" + err);
          alert('Weather Unavialable');
      });
- };
+ }
  // Create the marker and the infoWindow,
  function CreateMarker(lat, lng, title, infoContent, image) {
      var icon = 'https://i.imgur.com/lmNYKw1.png';
@@ -47,7 +47,7 @@
          });
          markers.push(marker);
      }
- };
+ }
 
  function CreateInfo(data) {
      // infowindow opens when clicked!
@@ -65,7 +65,7 @@
              infowindow.open(map, markers[i]);
          }
      }
- };
+ }
 
  // Wikipedia API
  function getWiki(value) {
@@ -90,20 +90,18 @@
              .fail(function() {
                  console.log("error");
                  alert('error while parsing your request. ');
-             })
+             });
      } else {
          alert("Sorry its looks like the place has no wikipedia page ! ");
      }
- };
+ }
 
  function showMarkers() {
      for (var i = 0; i < places.length; i++) {
-         CreateMarker(places[i]['lat'], places[i]['lng'], places[i]['title'], places[i]['info'], places[i]['photo']);
-     }
-     for (var i = 0; i < markers.length; i++) {
+         CreateMarker(places[i].lat, places[i].lng, places[i].title, places[i].info, places[i].photo);
          markers[i].setMap(map);
      }
- };
+ }
 
  // MOdelView
  var vm = function() {
