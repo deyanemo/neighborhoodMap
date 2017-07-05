@@ -1,0 +1,151 @@
+body {
+    padding: 0;
+    margin:0;
+}
+#map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.options {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: #474747;
+    z-index: 2;
+    opacity: 0;
+    transition: all 500ms ease;
+    overflow-x: scroll;
+}
+.open {
+    animation: menu 400ms linear forwards;
+}
+.close {
+    opacity: 0;
+}
+.nav {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    z-index: 3;
+}
+.nav i {
+    padding: 5px;
+    cursor: pointer;
+    transition: all 500ms ease;
+}
+.nav i:hover {
+    transform: rotate(360deg);
+    color: yellow;
+}
+.weather {
+    width: 150px;
+    height: 50px;
+    float: right;
+    color: #fff;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+.weatherImg {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+}
+.weatherText {
+    position: absolute;
+    font-size: .8em;
+    padding: 0;
+    margin:0;
+    float: left;
+    top: 15px;
+}
+.zoom {
+    padding: 15px;
+}
+.zoom:hover {
+    color: green;
+}
+.infoImage {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    float: left;
+}
+.item {
+    width: 100%;
+    height: 25px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #fff;
+}
+.item:hover {
+    background-color: #333;
+}
+.item:first-child {
+    margin-top: 50px;
+}
+.wiki {
+    font-family: sans-serif;
+    font-size: 1em;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    height: auto;
+    width: 30%;
+    background-color:#000 ;
+    z-index: 4;
+    opacity: 0.8;
+    overflow: hidden;
+    color: #fff;
+    background: #000;
+    opacity: 0;
+    transition: all 100ms ease;
+    padding: 10px;
+}
+.wiki h1 {
+    margin:0;
+}
+.readmore  {
+    padding: 10px;
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+}
+.close {
+    color: #fff;
+}
+@keyframes menu {
+    from {
+        transform: translate(-100%);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .options{
+        width: 75%;
+    }
+    .weatherText {
+        display: none;
+    }
+    .weatherImg {
+        top: 12px;
+    }
+    .weather {
+        width: 30px;
+    }
+    .wiki {
+        bottom: 0px;
+        right: 0;
+        width: 100%;
+text-align: center;    }
+}

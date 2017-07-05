@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighborhood Map</title>
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav">
+        <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: toggle"></i>
+        <div class="fa fa-search-minus zoom fa-lg" data-bind="click: setZoom"></div>
+        <div class="fa fa-map-marker zoom fa-lg" data-bind="click: show()"></div>
+        <div class="fa fa-coffee zoom fa-lg" data-bind="click: showCoffe"></div>
+        <div class="weather"></div>
+
+    </div>
+    <div class="container">
+        <div id="map" data-bind="map:myMap"></div>
+        <div class="options" data-bind="foreach: places">
+            <div class="item" data-bind='click:showThis , text: name'></div>
+        </div>
+        <div class="wiki"></div>
+    </div>
+</div>
+<!-- I Didnt add the async defer cause it caused me errors and the whole app crashed  and without it it still work fine :)-->
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDbiPbZQjmXRsPEJcOW-jzAzlCovxhrOL0&v=3">
+</script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/knockout.js"></script>
+<script type="text/javascript" src="js/myPlaces.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
