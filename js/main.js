@@ -159,7 +159,7 @@
              });
              map.setZoom(16);
 
-         }
+         };
  };
 
  ko.applyBindings(vm);
