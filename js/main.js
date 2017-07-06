@@ -11,24 +11,6 @@
          });
      }
  };
- // Show today Weather for the Area we wanna explore today
- function showTodayWeather() {
-     var url = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/Germany/berlin.json";
-     $.ajax({
-         url: url,
-         type: 'GET',
-         dataType: 'json'
-     }).done(function(response) {
-         // On Success
-         $('.weather').html("<p class='weatherText'>" + response.current_observation.dewpoint_c + "C - " + response.current_observation.weather + '</p><img src="' + response.current_observation.icon_url + '"" class="weatherImg" alt="icon">');
-         // $('.weatherImg').attr('src', response.current_observation.icon_url);
-
-     }).fail(function(err) {
-         // on error
-         console.log("error" + err);
-         alert('Weather Unavialable');
-     });
- }
  // Create the marker and the infoWindow,
  function CreateMarker(lat, lng, title, infoContent, image) {
      var icon = 'https://i.imgur.com/lmNYKw1.png';
@@ -105,61 +87,81 @@
 
  // MOdelView
  var vm = function() {
-     self = this;
+    self = this
+    this.weatherIcon =  ko.observable();
+    this.weatherStat =  ko.observable();
+    this.query = ko.observable('');
      // Getting the Weather
-     showTodayWeather();
-     this.toggle = function() {
+    this.showTodayWeather = ko.computed(function(){
+         var url = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/Germany/berlin.json";
+         $.ajax({
+             url: url,
+             type: 'GET',
+             dataType: 'json'
+         }).done(function(response) {
+             // On Success
+               self.weatherIcon(response.current_observation.icon_url);
+               self.weatherStat(response.current_observation.dewpoint_c +" C - "+ response.current_observation.weather);
+         }).fail(function(err) {
+             // on error
+             console.log("error" + err);
+             alert('Weather Unavialable');
+         });
+     },this),
+    this.showAllAtStart = ko.computed(function(){
+        showMarkers();
+    }, this);
+    this.toggle = function() {
              // toggle the menu
              $('.options').toggleClass('open');
          },
-         this.show = function() {
-             // Show all the markers or the plces of tourist attractions
-             showMarkers();
+    this.show = function(){
+            showMarkers();
          },
-         this.setZoom = function() {
+             // Show all the markers or the plces of tourist attractions
+    this.setZoom = function() {
              // zoom out for the mobile version
              map.setZoom(12);
          },
-         this.showThis = function(data, response) {
-          showMarkers();
-             // For every item in the markers
-             // Getting data from wikipedia
-             getWiki(data.name);
-             // Checking if the info is already open
-             //  // close it
-             if (self.infowindow) {
-                 self.infowindow.close();
+    this.showThis = function(data, response) {
+         // For every item in the markers
+         // Getting data from wikipedia
+         getWiki(data.name);
+         // Checking if the info is already open
+         //  // close it
+         if (self.infowindow) {
+             self.infowindow.close();
+         }
+         // Creating the InfoWindow
+         CreateInfo(data);
+         // Show the markers only when the item is clicked
+         for (var i = 0; i < markers.length; i++) {
+             if (data.title == markers[i].title) {
+                 markers[i].setMap(map);
+                 map.setCenter({
+                     lat: data.lat,
+                     lng: data.lng
+                 });
+             } else {
+                 // else clear the markers
+                 markers[i].setMap(null);
              }
-             // Creating the InfoWindow
-             CreateInfo(data);
-             // Show the markers only when the item is clicked
-             for (var i = 0; i < markers.length; i++) {
-                 if (data.title == markers[i].title) {
-                     markers[i].setMap(map);
-                     map.setCenter({
-                         lat: data.lat,
-                         lng: data.lng
-                     });
-                 } else {
-                     // else clear the markers
-                     markers[i].setMap(null);
-                 }
-             }
+         }
          },
-         this.showCoffe = function() {
-             console.log("Coffe");
-             var cafePlcae = places[12];
-             if (self.infowindow) {
-                 self.infowindow.close();
-             }
-             CreateInfo(cafePlcae);
-             map.setCenter({
-                 lat: cafePlcae.lat,
-                 lng: cafePlcae.lng
-             });
-             map.setZoom(16);
+    this.showCoffe = function() {
+         console.log("Coffe");
+         var cafePlcae = places[12];
+         if (self.infowindow) {
+             self.infowindow.close();
+         }
+         CreateInfo(cafePlcae);
+         map.setCenter({
+             lat: cafePlcae.lat,
+             lng: cafePlcae.lng
+         });
+         map.setZoom(16);
 
-         };
+     };
  };
 
  ko.applyBindings(vm);

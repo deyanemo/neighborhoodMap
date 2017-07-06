@@ -11,11 +11,19 @@ The Mobile Version
 
 Very Simple to start click on the burger menu and select an item
 
-or to view all the places from header press on the marker icon
+live version of the code : https://codepen.io/deyanemo/full/BZPXYM/
 
-to zoom out press on the magnifing glass in the header
+**the app is responsive support mobile devices**
 
-the coffe icon will guide to drink a good coffe :)
+
+## Usage :
+- [x] all the location will show up on window load.
+- [x] you can choose selected item from the menu to open the menu press of the burger menu left top the screen
+- [x] you can filter trough all the places by name or letter
+- [x] you can press on any marker on the map and the infowindow will show
+- [x] if you stock in a zoom level and you want to backup press the markers icons in the header section
+- [x] also the app will provide you with today or the current weather
+
 
 
 ## Built With
@@ -23,6 +31,7 @@ the coffe icon will guide to drink a good coffe :)
 * Knockoutjs
 * Jquery
 * icons : fontawesome
+* weather from wunderground
 
 ## Authors
     @deyanem0

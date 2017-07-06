@@ -7,30 +7,31 @@
     <link rel="stylesheet" href="css/fontawesome/css/font-awesome.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <div class="nav">
-        <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: toggle"></i>
-        <div class="fa fa-search-minus zoom fa-lg" data-bind="click: setZoom"></div>
-        <div class="fa fa-map-marker zoom fa-lg" data-bind="click: show()"></div>
-        <div class="fa fa-coffee zoom fa-lg" data-bind="click: showCoffe"></div>
-        <div class="weather"></div>
+<main>
+    <nav class="nav">
+        <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: showMenu"></i>
+        <section class="fa fa-map-marker zoom fa-lg" data-bind="click: setZoom"></section>
+        <section class="weather">
+            <p class='weatherText' data-bind="text : weatherStat"></p>
+            <img data-bind="attr: {src : weatherIcon}" alt="icon" class="weatherImg">
+        </section>
+    </nav>
 
-    </div>
-    <div class="container">
-        <div id="map" data-bind="map:myMap"></div>
-        <div class="options" data-bind="foreach: places">
-            <div class="item" data-bind='click:showThis , text: name'></div>
-        </div>
-        <div class="wiki"></div>
-    </div>
-</div>
-<!-- I Didnt add the async defer cause it caused me errors and the whole app crashed  and without it it still work fine :)-->
-<script src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDbiPbZQjmXRsPEJcOW-jzAzlCovxhrOL0&v=3">
+    <section class="container">
+        <section id="map" data-bind="map:myMap"></section>
+        <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" class="filter">
+        <section class="options" data-bind="visible: menuVis , template: {foreach:placest}">
+            <section class="item" data-bind='click:showThis ,text: name'></section>
+        </section>
+    </section>
+</section>
+
+<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDbiPbZQjmXRsPEJcOW-jzAzlCovxhrOL0&v=3" onerror="mapError()">
 </script>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-<script type="text/javascript" src="js/myPlaces.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script src="js/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script src="js/myPlaces.js"></script>
+<script src="js/app.js"></script>
 
-</body>
+</main>
 </html>
