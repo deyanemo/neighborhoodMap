@@ -109,18 +109,22 @@ function CreateMarker(lat, lng, title) {
   markers.push(marker);
  }
 }
+
 var viewModel = function() {
  var self = this;
  // search Query
  this.query = ko.observable();
  // Weather Icon
  this.weatherIcon = ko.observable();
- this.wikis = ko.observable();
+ this.wikis = function(info, title){
+    // alert(es)
+    return infowindow.setContent("<h1>" + title+ "</h1>" +"<p>" + info + "</p>");
+ };
  this.weatherStat = ko.observable();
  this.placest = ko.observableArray(nemo);
  this.menuVis = ko.observable(false);
  // Getting the Weather
- this.showTodayWeather = ko.computed(function() {
+this.showTodayWeather = ko.computed(function() {
   var url = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/Germany/berlin.json";
   $.ajax({
    url: url,
@@ -138,10 +142,7 @@ var viewModel = function() {
  }, this);
  // on item click show infowinfow
 
- this.showThis = function(e) {
-  for (var i = 0; i < markers.length; i++) {
-   if (e.title == markers[i].title) {
-    // self.wikis('');
+this.showThis = function(e) {
     var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + e.name + "&limit=1&format=json";
     $.ajax({
      url: url,
@@ -149,19 +150,18 @@ var viewModel = function() {
      dataType: 'jsonp',
      async: false,
      success: function(response) {
-      self.wikis(response[2]);
-      var theTitle = "<h1>" + response[1] + "</h1>";
-      var theDesc = "<p>" + self.wikis() + "</p>";
-      var TheContent = theTitle + theDesc;
-      infowindow.setContent(TheContent);
+      self.wikis(response[2] , response[1]);
      },
      error: function(err) {
       self.wikis("ERROR getting information please try again later");
-      infowindow.setContent(self.wikis());
+      infowindow.setContent(self.wikis());;
 
      }
     });
-
+  for (var i = 0; i < markers.length; i++) {
+   if (e.title == markers[i].title) {
+    // self.wikis('');
+    infowindow.setContent("<p>Getting Content please wait .......</p>")
     infowindow.open(map, markers[i]);
     markers[i].setAnimation(google.maps.Animation.BOUNCE);
    } else {
@@ -169,7 +169,7 @@ var viewModel = function() {
    }
   }
  };
- search = function(value) {
+search = function(value) {
    // remove all the current places, which removes them from the view
    self.placest.removeAll();
    for (var x in places) {
@@ -182,20 +182,18 @@ var viewModel = function() {
    }
 
   },
-  this.showMenu = function() {
+this.showMenu = function() {
    if (!this.menuVis()) {
     this.menuVis(true);
    } else {
     this.menuVis(false);
    }
   },
-  this.setZoom = function() {
+this.setZoom = function() {
    map.setZoom(12);
 
   };
- this.wikis.extend();
  this.query.subscribe(this.search);
-
 };
 
 ko.applyBindings(viewModel);
