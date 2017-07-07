@@ -1,30 +1,45 @@
 var map;
 var markers = [];
-var infowindow = new google.maps.InfoWindow();
+var infowindow;
 // The Reason i duplicated the array
 // Is i had a bug in my code with filtered data
 // Its seems when ever i try to empty the ko.obserableArry
 // it delte my original array in file myPlaces
 var nemo = [].concat(places);
+function start() {
+google.maps.event.addDomListener(window, 'load', init);
+}
+function init() {
+        // Initiate the Map
+        try{
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 52.52000046,
+                    lng: 13.40999985
+                },
+                zoom: 13
+            });
+         for (var i = 0; i < places.length; i++) {
+            // Set the Marker On the map as soon as its load
+             CreateMarker(places[i].lat, places[i].lng, places[i].title, places[i].info, places[i].photo);
+             // Show the Markers on the map
+             markers[i].setMap(map);
+         }
+    }
+    catch(err) {
+       // do nothing :)
+    }
+}
+
 ko.bindingHandlers.map = {
     init: function() {
-        // Initiate the Map
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: 52.52000046,
-                lng: 13.40999985
-            },
-            zoom: 13
-        });
-     for (var i = 0; i < places.length; i++) {
-        // Set the Marker On the map as soon as its load
-         CreateMarker(places[i].lat, places[i].lng, places[i].title, places[i].info, places[i].photo);
-         // Show the Markers on the map
-         markers[i].setMap(map);
-     }
+        init();
     }
 };
-// Create Marker
+function startApp(){
+    alert();
+ ko.applyBindings(viewModel);
+}
 
 function mapError() {
     alert("Please Try Again later!");
