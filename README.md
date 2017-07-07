@@ -24,14 +24,30 @@ live version of the code : https://codepen.io/deyanemo/full/BZPXYM/
 - [x] if you stock in a zoom level and you want to backup press the markers icons in the header section
 - [x] also the app will provide you with today or the current weather
 
+# Requeried files :
+    - index.html
+    - myPlaces.js
+    - app.js
+
+
+# Hosting & Running  :
+    - download the git repo
+    - if you using xampp, wamp , apache..etc
+    - copy the files to the **www** folder
+    - then from your fav browser navigate to : http://localhost/your_files_location
+    - you can use any hosting provider as long as you upload the requered files
+    - for example : codepen , webs , heroku ...
 
 
 ## Built With
-
+*google maps API
 * Knockoutjs
 * Jquery
 * icons : fontawesome
+#APIS
 * weather from wunderground
+* Wikipedia
+* Foursquare
 
 ## Authors
     @deyanem0

@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neighborhood Map</title>
-    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<main>
-    <nav class="nav">
-        <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: showMenu"></i>
-        <section class="fa fa-map-marker zoom fa-lg" data-bind="click: setZoom"></section>
-        <section class="weather">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Neighborhood Map</title>
+      <link rel="stylesheet" href="css/fontawesome/css/font-awesome.css">
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <main>
+      <nav class="nav">
+         <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: showMenu"></i>
+         <section class="fa fa-map-marker zoom fa-lg" data-bind="click: setZoom"></section>
+         <section class="weather">
             <p class='weatherText' data-bind="text : weatherStat"></p>
-            <img data-bind="attr: {src : weatherIcon}" alt="icon" class="weatherImg">
-        </section>
-    </nav>
-
-    <section class="container">
-        <section id="map" data-bind="map:myMap"></section>
-        <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" class="filter">
-        <section class="options" data-bind="visible: menuVis , template: {foreach:placest}">
+            <img src="#" data-bind="attr: {src : weatherIcon}" alt="icon" class="weatherImg">
+         </section>
+      </nav>
+      <aside class="container">
+         <section id="map" data-bind="map:myMap"></section>
+         <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" class="filter">
+         <section class="options" data-bind="visible: menuVis , template: {foreach:placest}">
             <section class="item" data-bind='click:showThis ,text: name'></section>
-        </section>
-    </section>
-</section>
-
-
-
-<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDbiPbZQjmXRsPEJcOW-jzAzlCovxhrOL0&v=3&callback=start" onerror="mapError()"></script>
-    <script src="js/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-    <script src="js/myPlaces.js"></script>
-    <script src="js/app.js"></script>
-</script>
-</main>
+         </section>
+      </aside>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+      <script src="js/myPlaces.js"></script>
+      <script src="js/app.js"></script>
+      <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDbiPbZQjmXRsPEJcOW-jzAzlCovxhrOL0&v=3&callback=start" onerror="mapError()"></script>
+   </main>
 </html>
+
