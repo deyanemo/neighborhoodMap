@@ -12,6 +12,7 @@ google.maps.event.addDomListener(window, 'load', init);
 function init() {
         // Initiate the Map
         try{
+            infowindow = new google.maps.InfoWindow();
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {
                     lat: 52.52000046,
