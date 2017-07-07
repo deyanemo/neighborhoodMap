@@ -110,7 +110,7 @@ var viewModel = function() {
 
       },
       this.showMenu = function() {
-        if (this.menuVis() == false) {
+        if (!this.menuVis()) {
             this.menuVis(true);
         }else {
             this.menuVis(false);
@@ -118,7 +118,7 @@ var viewModel = function() {
       },
       this.setZoom = function() {
         map.setZoom(12);
-      }
+      };
 
 this.query.subscribe(this.search);
 
