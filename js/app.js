@@ -154,14 +154,14 @@ this.showThis = function(e) {
      },
      error: function(err) {
       self.wikis("ERROR getting information please try again later");
-      infowindow.setContent(self.wikis());;
+      infowindow.setContent(self.wikis());
 
      }
     });
   for (var i = 0; i < markers.length; i++) {
    if (e.title == markers[i].title) {
     // self.wikis('');
-    infowindow.setContent("<p>Getting Content please wait .......</p>")
+    infowindow.setContent("<p>Getting Content please wait .......</p>");
     infowindow.open(map, markers[i]);
     markers[i].setAnimation(google.maps.Animation.BOUNCE);
    } else {
