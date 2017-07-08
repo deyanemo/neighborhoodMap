@@ -152,8 +152,7 @@ var viewModel = function() {
                 }
             },
             error: function(err) {
-                infowindow.setContent(self.wikis());
-
+                self.wikis("Error","getting information please try again later");
             }
         });
         for (var i = 0; i < markers.length; i++) {
