@@ -138,6 +138,16 @@ var viewModel = function() {
     // on item click show infowinfow
 
     this.showThis = function(e) {
+        for (var i = 0; i < markers.length; i++) {
+            if (e.title == markers[i].title) {
+                // self.wikis('');
+                infowindow.setContent("<p>Getting Content please wait .......</p>");
+                infowindow.open(map, markers[i]);
+                markers[i].setAnimation(google.maps.Animation.BOUNCE);
+            } else {
+                markers[i].setAnimation(null);
+            }
+        }
         var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + e.name + "&limit=1&format=json";
         $.ajax({
             url: url,
@@ -155,16 +165,6 @@ var viewModel = function() {
                 self.wikis("Error","getting information please try again later");
             }
         });
-        for (var i = 0; i < markers.length; i++) {
-            if (e.title == markers[i].title) {
-                // self.wikis('');
-                infowindow.setContent("<p>Getting Content please wait .......</p>");
-                infowindow.open(map, markers[i]);
-                markers[i].setAnimation(google.maps.Animation.BOUNCE);
-            } else {
-                markers[i].setAnimation(null);
-            }
-        }
     };
     search = function(value) {
             // remove all the current places, which removes them from the view
@@ -190,7 +190,7 @@ var viewModel = function() {
             map.setZoom(12);
 
         };
-    this.query.subscribe(this.search);
-};
+        this.query.subscribe(this.search);
+    };
 
-ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel);
