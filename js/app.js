@@ -13,24 +13,24 @@ function start() {
 
 function init() {
  // Initiate the Map
- try {
-  infowindow = new google.maps.InfoWindow();
-  map = new google.maps.Map(document.getElementById('map'), {
-   center: {
+ try{
+ infowindow = new google.maps.InfoWindow();
+ map = new google.maps.Map(document.getElementById('map'), {
+    center: {
     lat: 52.52000046,
     lng: 13.40999985
    },
    zoom: 13
-  });
+ });
   for (var i = 0; i < places.length; i++) {
    // Set the Marker On the map as soon as its load
-   CreateMarker(places[i].lat, places[i].lng, places[i].title);
+    CreateMarker(places[i].lat, places[i].lng, places[i].title);
    // Show the Markers on the map
-   markers[i].setMap(map);
+    markers[i].setMap(map);
   }
- } catch (err) {
-  // do nothing :)
- }
+}catch(err){
+// console.log(err);
+}
 }
 
 ko.bindingHandlers.map = {
@@ -55,21 +55,6 @@ function showAnim(marker) {
  }
 }
 
-function getWiki(value) {
- var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + value + "&limit=1&format=json";
- return $.ajax({
-  url: url,
-  type: 'GET',
-  dataType: 'jsonp',
-  success: function(response) {
-   console.log(response);
-  },
-  error: function(err) {
-   return err;
-  }
- });
-}
-
 
 function CreateMarker(lat, lng, title) {
  var icon = 'https://i.imgur.com/lmNYKw1.png';
@@ -92,17 +77,27 @@ function CreateMarker(lat, lng, title) {
    url: url,
    type: 'GET',
    dataType: 'jsonp',
-   async: false,
+   async: true,
    success: function(response) {
     var theTitle = "<h1>" + response[1] + "</h1>";
     var theDesc = "<p>" + response[2] + "</p>";
     var TheContent = theTitle + theDesc;
     // Marker Event Listener
     marker.addListener('click', function() {
-     infowindow.setContent(TheContent);
+    if (response[2].length !== 0) {
+      infowindow.setContent(TheContent);
+    }else {
+      infowindow.setContent("There is no Details for this place on wikipedia! <a href='https://www.google.de/search?q="+ response[0] +"'> Google It </a>");
+    }
+    infowindow.open(map, marker);
+    showAnim(marker);
+    });
+   },
+   error: function() {
+     marker.addListener('click', function() {
+     infowindow.setContent("Error loading Details from wikipedia");
      infowindow.open(map, marker);
      showAnim(marker);
-     // console.log(marker);
     });
    }
   });
@@ -148,9 +143,13 @@ this.showThis = function(e) {
      url: url,
      type: 'GET',
      dataType: 'jsonp',
-     async: false,
+     async: true,
      success: function(response) {
+        if (response[2] == '') {
+            self.wikis(e.title, "unfortunately there is no information about this place!  <a href='https://www.google.de/search?q="+ response[0] +"'> Google It </a>");
+        }else {
       self.wikis(response[2] , response[1]);
+        }
      },
      error: function(err) {
       self.wikis("ERROR getting information please try again later");

@@ -10,17 +10,25 @@
    <main>
       <nav class="nav">
          <i class="fa fa-bars toggleMewnu fa-lg" data-bind="click: showMenu"></i>
-         <section class="fa fa-map-marker zoom fa-lg" data-bind="click: setZoom"></section>
+         <section class="fa fa-map-marker zoom fa-lg" data-bind="click: setZoom">
+             <!-- content -->
+         </section>
          <section class="weather">
-            <p class='weatherText' data-bind="text : weatherStat"></p>
+            <p class='weatherText' data-bind="text : weatherStat">
+             <!-- content -->
+            </p>
             <img src="#" data-bind="attr: {src : weatherIcon}" alt="icon" class="weatherImg">
          </section>
       </nav>
       <aside class="container">
-         <section id="map" data-bind="map:myMap"></section>
+         <section id="map" data-bind="map:myMap">
+             <!-- content -->
+         </section>
          <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" class="filter">
          <section class="options" data-bind="visible: menuVis , template: {foreach:placest}">
-            <section class="item" data-bind='click:showThis ,text: name'></section>
+            <section class="item" data-bind='click:showThis ,text: name'>
+             <!-- content -->
+            </section>
          </section>
       </aside>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
