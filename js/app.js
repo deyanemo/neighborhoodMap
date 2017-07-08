@@ -84,7 +84,7 @@ function CreateMarker(lat, lng, title) {
     var TheContent = theTitle + theDesc;
     // Marker Event Listener
     marker.addListener('click', function() {
-    if (response[2].length !== 0) {
+    if (response[2].length != 0) {
       infowindow.setContent(TheContent);
     }else {
       infowindow.setContent("There is no Details for this place on wikipedia! <a href='https://www.google.de/search?q="+ response[0] +"'> Google It </a>");
