@@ -145,7 +145,7 @@ this.showThis = function(e) {
      dataType: 'jsonp',
      async: true,
      success: function(response) {
-        if (response[2] == '') {
+        if (response[2].length == 0) {
             self.wikis(e.title, "unfortunately there is no information about this place!  <a href='https://www.google.de/search?q="+ response[0] +"'> Google It </a>");
         }else {
       self.wikis(response[2] , response[1]);
